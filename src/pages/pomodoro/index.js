@@ -11,19 +11,21 @@ export class Pomodoro extends React.Component {
       timer: null,
     }
     this.state = {
-      time: 60 * 25,
+      time: 60 * 25,      // default time is 25 minutes
       flicker: true,
-      status: 'stop',
-      open: false,
-      thing: ''
+      status: 'stop',     // there are three status: stop, start, pause
+      open: false,        // control modal visible
+      thing: ''           // what is current doing
     }
 
+    // use bind because the "this" effect
     this.handleClickStart = this.handleClickStart.bind(this);
     this.handleClickStop = this.handleClickStop.bind(this);
     this.handleClickPause = this.handleClickPause.bind(this);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
   }
 
+  // handle click "submit" button on the modal
   handleClickSubmit() {
     this.setState({
       status: 'start',
@@ -31,6 +33,7 @@ export class Pomodoro extends React.Component {
     });
   }
 
+  // handle click start button
   handleClickStart() {
     if (this.state.time === 0) {
       this.setState({
@@ -43,6 +46,7 @@ export class Pomodoro extends React.Component {
     }
   }
 
+  // handle click stop button
   handleClickStop() {
     clearTimeout(this.data.timer);
     this.setState({
@@ -52,6 +56,7 @@ export class Pomodoro extends React.Component {
     });
   }
 
+  // handle click pause button
   handleClickPause() {
     clearTimeout(this.data.timer);
     this.setState({
@@ -59,6 +64,7 @@ export class Pomodoro extends React.Component {
     });
   }
 
+  // update the time, subtract one second
   refreshTime() {
     if (this.state.status === 'start') {
       clearTimeout(this.data.timer);
@@ -84,7 +90,7 @@ export class Pomodoro extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-
+    // trigger only the current status is 'start' and last status is not 'start'
     if (this.state.status === 'start' && (prevState.status === 'stop' || prevState.status === 'pause')) {
       this.refreshTime();
     }

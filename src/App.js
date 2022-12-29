@@ -6,8 +6,10 @@ import {Sleeps} from "./pages/sleeps";
 
 
 function App() {
+  // get the active route
   const location = useLocation();
   const pathname = location.pathname;
+  // use navigate to another route
   const navigate = useNavigate();
   return (
     <>

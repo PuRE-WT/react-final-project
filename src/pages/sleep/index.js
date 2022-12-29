@@ -10,15 +10,17 @@ export class Sleep extends React.Component {
       start: null
     }
     this.state = {
-      sleeps: [],
-      time: 0,
-      status: 'stop',
+      sleeps: [],       // all sleeps
+      time: 0,          // sleep time
+      status: 'stop',   // two status: 'start' or 'stop'
       sleepService: new Service()
     }
+    // use bind because the "this" effect
     this.handleClickStart = this.handleClickStart.bind(this);
     this.handleClickStop = this.handleClickStop.bind(this);
   }
 
+  // refresh time, add one second once
   refreshTime() {
     if (this.state.status === 'start') {
       setTimeout(() => {
@@ -31,6 +33,7 @@ export class Sleep extends React.Component {
     }
   }
 
+  // listen user click stop button
   handleClickStop() {
     this.time = 0;
     this.setState({
@@ -43,6 +46,7 @@ export class Sleep extends React.Component {
     this.data.start = null;
   }
 
+  // listen user click start button
   handleClickStart() {
     this.setState({
       status: 'start'

@@ -9,7 +9,7 @@ export class Todo extends React.Component {
       todos: [],
       todoService: new TodoService()
     }
-
+    // use bind because the "this" effect
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClickDone = this.handleClickDone.bind(this);
     this.handleClickRemove = this.handleClickRemove.bind(this);
@@ -19,6 +19,7 @@ export class Todo extends React.Component {
     this.refreshTodos();
   }
 
+  // update todo list
   refreshTodos() {
     const todos = [...this.state.todoService.todos];
     todos.sort((prev, next) => {
@@ -32,6 +33,7 @@ export class Todo extends React.Component {
     })
   }
 
+  // listen user add new todo
   handleSubmit(e) {
     e.preventDefault();
     this.setState({
@@ -44,6 +46,7 @@ export class Todo extends React.Component {
     this.refreshTodos();
   }
 
+  // listen user click done checkbox
   handleClickDone(e, todo) {
     if (e.target.checked) {
       this.state.todoService.doneTodo(todo.id);
@@ -51,6 +54,7 @@ export class Todo extends React.Component {
     }
   }
 
+  // listen user click delete button
   handleClickRemove(todo) {
     this.state.todoService.deleteTodo(todo.id);
     this.refreshTodos();
