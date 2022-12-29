@@ -11,7 +11,7 @@ export class Pomodoro extends React.Component {
       timer: null,
     }
     this.state = {
-      time: 0,
+      time: 60 * 25,
       flicker: true,
       status: 'stop',
       open: false,
@@ -47,7 +47,7 @@ export class Pomodoro extends React.Component {
     clearTimeout(this.data.timer);
     this.setState({
       status: 'stop',
-      time: 0,
+      time: 25 * 60,
       thing: ''
     });
   }
@@ -64,10 +64,17 @@ export class Pomodoro extends React.Component {
       clearTimeout(this.data.timer);
       this.data.timer = setTimeout(() => {
         const time = this.state.time;
-        this.setState({
-          time: time + 1
-        })
-        this.refreshTime();
+        if (time > 0) {
+          this.setState({
+            time: time - 1
+          })
+          this.refreshTime();
+        } else {
+          this.setState({
+            status: 'stop'
+          })
+        }
+
       }, 1000);
     }
   }
